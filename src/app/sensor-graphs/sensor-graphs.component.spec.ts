@@ -1,15 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SensorGraphsComponent } from './sensor-graphs.component';
 import { SensorDataService } from '../sensor-data.service';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
-const mockRawDataCSV = `time,s1,s2,s3
-2020-06-01 19:37:22.026972,767,22.5,23.0,20.5
-2020-06-01 19:38:24.746879,768,22.5,23.0,20.5
-2020-06-01 19:39:27.466897,768,22.5,23.0,20.5`
+let sensorDataServiceStub: Partial<SensorDataService>;
 
-const sensorDataService = jasmine.createSpyObj('SensorDataService', ['getRawDataCSV'])
-var getRawDataCSVSpy = sensorDataService.getRawDataCSV.and.returnValue(of(mockRawDataCSV))
+sensorDataServiceStub = {
+  getRawDataCSV: function(): Observable<string> {
+    return of("some data")
+  },
+  parseRawData: function(string): Map<string, Array<number>> {
+    return new Map([
+      ["s1", [767, 768, 768]],
+      ["s2", [22.5, 22.5, 22.5]],
+      ["s3", [23.0, 23.0, 23.0]],
+      ["s4", [20.5, 20.5, 20.5]],
+    ]);
+  }
+}
 
 describe('SensorGraphsComponent', () => {
   let component: SensorGraphsComponent;
@@ -19,7 +27,7 @@ describe('SensorGraphsComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ SensorGraphsComponent ],
       providers: [
-        {provide: SensorDataService, useValue: sensorDataService}
+        {provide: SensorDataService, useValue: sensorDataServiceStub}
       ]
     })
     .compileComponents();

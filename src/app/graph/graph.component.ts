@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterContentInit, AfterViewInit } from '@angular/core';
-import * as Highcharts from 'highcharts';
+import * as Highcharts from 'highcharts/highstock';
 
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
@@ -27,7 +27,7 @@ export class GraphComponent implements AfterViewInit {
     const options: Highcharts.Options = {
       chart: {
         type: 'scatter',
-        height: 300
+        height: 600
       },
       title: {
         text: this.title
@@ -67,7 +67,7 @@ export class GraphComponent implements AfterViewInit {
         {opposite: true},
       ]
     };
-    Highcharts.chart(this.chartId, options);
+    Highcharts.stockChart(this.chartId, options);
   }
 
 }
