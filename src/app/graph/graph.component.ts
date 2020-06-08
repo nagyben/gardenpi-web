@@ -37,11 +37,7 @@ export class GraphComponent implements AfterViewInit {
       },
       xAxis: {
         type: 'datetime',
-        labels: {
-          formatter() {
-            return Highcharts.dateFormat('%e %b %y', this.value);
-          }
-        }
+        ordinal: false
       },
       series: this.series,
       plotOptions: {
@@ -51,12 +47,13 @@ export class GraphComponent implements AfterViewInit {
             hover: {
               enabled: false
             }
-          }
+          },
+          gapSize: 5
         },
         line: {
           marker: {
             enabled: false
-          }
+          },
         },
       },
       boost: {
