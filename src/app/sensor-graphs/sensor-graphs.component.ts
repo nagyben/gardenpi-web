@@ -6,7 +6,7 @@ import { max } from 'rxjs/operators';
 
 
 const SENSOR_KEYS = [
-  "lux", "t_4cba936", "t_4cdf645", "4ce8778"
+  "lux", "t_4cba936", "t_4cdf645", "t_4ce8778", "t_cpu"
 ]
 
 @Component({
