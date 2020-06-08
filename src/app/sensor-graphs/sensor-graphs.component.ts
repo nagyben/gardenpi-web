@@ -42,7 +42,7 @@ export class SensorGraphsComponent implements OnInit {
             yAxis: key == "lux" ? 1 : 0,
             dataGrouping: {
               enabled: true,
-              groupPixelWidth: 20
+              groupPixelWidth: 5
             },
             tooltip: {
               valueDecimals: 1
