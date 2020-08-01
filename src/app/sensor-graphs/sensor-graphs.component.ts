@@ -6,7 +6,7 @@ import { max } from 'rxjs/operators';
 
 
 const SENSOR_KEYS = [
-  "lux", "t_4cba936", "t_4cdf645", "t_4ce8778", "t_cpu", "moisture"
+  "t_external","t_internal_1","t_internal_2","t_bme280","pressure","humidity","lux","heater"
 ]
 
 @Component({
@@ -39,7 +39,7 @@ export class SensorGraphsComponent implements OnInit {
             data: data[key],
             type: 'spline',
             lineWidth: 1,
-            yAxis: (key == "lux" || key == "moisture") ? 1 : 0,
+            yAxis: (key == "lux" || key == "pressure") ? 1 : 0,
             dataGrouping: {
               enabled: true,
               groupPixelWidth: 5

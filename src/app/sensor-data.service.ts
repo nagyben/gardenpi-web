@@ -20,6 +20,7 @@ export class SensorDataService {
     var retval = new Map<String, Array<number>>();
     const lines = rawData.split('\n');
     const headers = lines[0].split(',');
+    console.log(headers);
     for (let i = 0; i < headers.length; i++) {
       retval[headers[i]] = new Array<number>();
     }
