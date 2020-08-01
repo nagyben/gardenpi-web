@@ -22,7 +22,7 @@ jobs:
           TMPDIR=$(mktemp -d)
           cd $TMPDIR
           git clone git@github.com:nagyben/gardenpi-web.git
-          cd ng-homepage
+          cd gardenpi-web
           docker build -t gardenpi-web .
           docker stop gardenpi-web || true
           docker container prune -f
