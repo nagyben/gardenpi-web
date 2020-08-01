@@ -1,0 +1,29 @@
+name: Build and deploy ng-homepage
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and deploy on Oracle
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.ORACLE_HOSTNAME }}
+        username: ${{ secrets.ORACLE_USERNAME }}
+        key: ${{ secrets.ORACLE_PRIVATE_KEY }}
+        port: ${{ secrets.ORACLE_PORT }}
+        script_stop: true # stops running script if one command fails
+        script: |
+          TMPDIR=$(mktemp -d)
+          cd $TMPDIR
+          git clone git@github.com:nagyben/gardenpi-web.git
+          cd ng-homepage
+          docker build -t gardenpi-web .
+          docker stop gardenpi-web || true
+          docker container prune -f
+          docker run --restart=unless-stopped -d --network home --name gardenpi-web gardenpi-web
+          rm -rf $TMPDIR
