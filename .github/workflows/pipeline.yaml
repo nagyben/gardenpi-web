@@ -17,6 +17,7 @@ jobs:
         key: ${{ secrets.ORACLE_PRIVATE_KEY }}
         port: ${{ secrets.ORACLE_PORT }}
         script_stop: true # stops running script if one command fails
+        debug: true
         script: |
           TMPDIR=$(mktemp -d)
           cd $TMPDIR
