@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { SensorGraphsComponent } from './sensor-graphs.component';
+
+import { SensorValuesComponent } from './sensor-values.component';
 import { SensorDataService } from '../sensor-data.service';
-import { of, Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 let sensorDataServiceStub: Partial<SensorDataService>;
@@ -17,16 +18,25 @@ sensorDataServiceStub = {
       ["s3", [[0, 23.0], [1, 23.0], [2, 23.0]]],
       ["s4", [[0, 20.5], [1, 20.5], [2, 20.5]]],
     ]);
-  }
+  },
+  getCurrentSensorValues: function(): Observable<Map<string, number>> {
+    return of(new Map([
+      ["s1", 767],
+      ["s2", 22.5],
+      ["s3", 23.0],
+      ["s4", 20.5],
+    ]));
+  },
+
 }
 
-describe('SensorGraphsComponent', () => {
-  let component: SensorGraphsComponent;
-  let fixture: ComponentFixture<SensorGraphsComponent>;
+describe('SensorValuesComponent', () => {
+  let component: SensorValuesComponent;
+  let fixture: ComponentFixture<SensorValuesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SensorGraphsComponent ],
+      declarations: [ SensorValuesComponent ],
       providers: [
         {provide: SensorDataService, useValue: sensorDataServiceStub}
       ],
@@ -36,7 +46,7 @@ describe('SensorGraphsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SensorGraphsComponent);
+    fixture = TestBed.createComponent(SensorValuesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -45,8 +55,9 @@ describe('SensorGraphsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create one GraphComponent', () => {
-    const graphComponent = fixture.nativeElement.querySelector('app-graph');
-    expect(graphComponent).toBeTruthy();
+  it('should create a SensorValue component for each sensor', () => {
+    const sensorValueComponents = fixture.nativeElement.querySelectorAll('app-sensor-value');
+    (sensorValueComponents);
+    expect(sensorValueComponents.length).toEqual(4);
   })
 });

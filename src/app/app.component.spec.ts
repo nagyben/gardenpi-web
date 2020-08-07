@@ -35,4 +35,9 @@ describe('AppComponent', () => {
     const sensorGraphsComponent = fixture.nativeElement.querySelector('app-sensor-graphs');
     expect(sensorGraphsComponent).toBeTruthy();
   });
+
+  it('should show the SensorValuesComponent', () => {
+    const sensorGraphsComponent = fixture.nativeElement.querySelector('app-sensor-values');
+    expect(sensorGraphsComponent).toBeTruthy();
+  })
 });

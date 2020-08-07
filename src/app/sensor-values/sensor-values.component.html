@@ -1,0 +1,5 @@
+<div class="row d-flex align-items-stretch mt-5">
+    <div *ngFor="let sensor of sensors" class="col-md-3 col-sm-6 mb-3">
+        <app-sensor-value [sensor]="sensor"></app-sensor-value>
+    </div>
+</div>

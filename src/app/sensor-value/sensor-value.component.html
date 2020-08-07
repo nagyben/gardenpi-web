@@ -1,0 +1,6 @@
+<div *ngIf="sensor" class="card bg-light h-100 text-center">
+    <div class="card-header">{{sensor.name}}</div>
+    <div class="card-body">
+        <h5>{{sensor.value | number: '0.1-1'}} <span class="text-muted" style="font-size: 0.8rem">{{unitString}}</span></h5>
+    </div>
+</div>

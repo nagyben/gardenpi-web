@@ -37,7 +37,7 @@ export class GraphComponent implements AfterViewInit {
       },
       xAxis: {
         type: 'datetime',
-        ordinal: false
+        ordinal: false,
       },
       series: this.series,
       plotOptions: {
@@ -60,7 +60,7 @@ export class GraphComponent implements AfterViewInit {
         useGPUTranslations: true
       },
       yAxis: [
-        {opposite: false},
+        {opposite: false, min: 0},
         {opposite: true},
       ]
     };

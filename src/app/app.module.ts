@@ -9,12 +9,17 @@ import { GraphComponent } from './graph/graph.component';
 
 import { SensorGraphsComponent } from './sensor-graphs/sensor-graphs.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SensorValuesComponent } from './sensor-values/sensor-values.component';
+import { SensorValueComponent } from './sensor-value/sensor-value.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     GraphComponent,
-    SensorGraphsComponent
+    SensorGraphsComponent,
+    SensorValuesComponent,
+    SensorValueComponent
   ],
   imports: [
     BrowserModule,

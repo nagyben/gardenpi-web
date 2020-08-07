@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { max } from 'rxjs/operators';
 
 
-const SENSOR_KEYS = [
-  "t_external","t_internal_1","t_internal_2","t_bme280","pressure","humidity","lux","heater"
+const SECONDARY_YAXIS = [
+  "pressure", "lux"
 ]
 
 @Component({
@@ -28,28 +28,25 @@ export class SensorGraphsComponent implements OnInit {
     });
   }
 
-  updateData(data: Map<String, Array<number>>): void {
+  updateData(data: Map<string, Array<Array<number>>>): void {
     var series = [];
-    for (const key of SENSOR_KEYS) {
-      console.log(key)
-      if (data.hasOwnProperty(key)) {
-        series.push(
-          {
-            name: key,
-            data: data[key],
-            type: 'spline',
-            lineWidth: 1,
-            yAxis: (key == "lux" || key == "pressure") ? 1 : 0,
-            dataGrouping: {
-              enabled: true,
-              groupPixelWidth: 5
-            },
-            tooltip: {
-              valueDecimals: 1
-            }
+    for (var key of data.keys()) {
+      series.push(
+        {
+          name: key,
+          data: data.get(key),
+          type: 'spline',
+          lineWidth: 1,
+          yAxis: SECONDARY_YAXIS.includes(key) ? 1 : 0,
+          dataGrouping: {
+            enabled: true,
+            groupPixelWidth: 5
+          },
+          tooltip: {
+            valueDecimals: 1
           }
-        )
-      }
+        }
+      )
     }
 
     this.graphs = [{
@@ -58,7 +55,6 @@ export class SensorGraphsComponent implements OnInit {
       chartId: "gardenpi-chart",
     }]
 
-    console.log(this.graphs);
   }
 
   ngOnInit(): void {

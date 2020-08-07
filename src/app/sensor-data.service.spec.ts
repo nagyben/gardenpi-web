@@ -36,13 +36,35 @@ describe('SensorDataService', () => {
   });
 
   it('should parse the data correctly', () => {
-    const expected: Map<string, Array<number>> = new Map([
-      ["s1", [767, 768, 768]],
-      ["s2", [22.5, 22.5, 22.5]],
-      ["s3", [23.0, 23.0, 23.0]],
-      ["s4", [20.5, 20.5, 20.5]],
+    const expected: Map<string, Array<Array<number>>> = new Map([
+      ["s1", [[1591036642026, 767],  [1591036704746, 768],  [1591036767466, 768]]],
+      ["s2", [[1591036642026, 22.5], [1591036704746, 22.5], [1591036767466, 22.5]]],
+      ["s3", [[1591036642026, 23.0], [1591036704746, 23.0], [1591036767466, 23.0]]],
+      ["s4", [[1591036642026, 20.5], [1591036704746, 20.5], [1591036767466, 20.5]]],
     ]);
     const actual = service.parseRawData(MOCK_CSV);
-    expect(actual).toEqual(jasmine.objectContaining(expected));
+
+    for (let [key, value] of actual) {
+      expect(actual.get(key)).toEqual(expected.get(key));
+    }
   });
+
+  it('should get the current sensor values', done => {
+    const expected: Map<string, number> = new Map([
+      ["s1", 768],
+      ["s2", 22.5],
+      ["s3", 23]
+    ]);
+
+    service.getCurrentSensorValues().subscribe(actual => {
+      for (let key of expected.keys()) {
+        expect(actual.has(key)).toBeTrue();
+        expect(actual.get(key)).toEqual(expected.get(key));
+      }
+      done();
+    })
+
+    const req = httpMock.expectOne(DATA_URL);
+    req.flush(MOCK_CSV);
+  })
 });
