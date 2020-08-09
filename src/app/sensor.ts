@@ -2,6 +2,7 @@ export interface Sensor {
     name: string;
     value: number;
     unit: SensorQuantity;
+    limit: number;
 }
 
 export enum SensorQuantity {

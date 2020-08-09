@@ -1,6 +1,11 @@
 <div *ngIf="sensor" class="card bg-light h-100 text-center">
     <div class="card-header">{{sensor.name}}</div>
-    <div class="card-body">
+    <div class="card-body" [ngClass]="
+    {
+        'text-danger': sensor.limit > 0 && sensor.value >= sensor.limit,
+        'text-warning': sensor.limit > 0 && sensor.value >= 0.9 * sensor.limit,
+        'text-success': sensor.limit > 0 && sensor.value < 0.9 * sensor.limit
+    }">
         <h5>{{sensor.value | number: '0.1-1'}} <span class="text-muted" style="font-size: 0.8rem">{{unitString}}</span></h5>
     </div>
 </div>

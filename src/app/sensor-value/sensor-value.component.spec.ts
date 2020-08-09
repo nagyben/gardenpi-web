@@ -21,13 +21,13 @@ describe('SensorValueComponent', () => {
   });
 
   it('should create', () => {
-    component.sensor = {name: "herp", value: 12.4, unit: SensorQuantity.TEMPERATURE};
+    component.sensor = {name: "herp", value: 12.4, unit: SensorQuantity.TEMPERATURE, limit: 0};
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should show its value', () => {
-    component.sensor = {name: "herp", value: 12.4, unit: SensorQuantity.TEMPERATURE};
+    component.sensor = {name: "herp", value: 12.4, unit: SensorQuantity.TEMPERATURE, limit: 0};
     fixture.detectChanges();
     const header = fixture.nativeElement.querySelector('h5');
     expect(header.textContent).toContain("12.4")

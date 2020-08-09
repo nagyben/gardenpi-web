@@ -17,7 +17,7 @@ export class SensorValuesComponent implements OnInit {
     .subscribe(data => {
       this.sensors = [];
       for (let [key, value] of data) {
-        this.sensors.push({name: key, value: value, unit: SENSOR_MAP[key]})
+        this.sensors.push({name: key, value: value, unit: SENSOR_MAP[key]["unit"], limit: SENSOR_MAP[key]["limit"]})
       }
     })
   }
@@ -29,11 +29,32 @@ export class SensorValuesComponent implements OnInit {
 }
 
 const SENSOR_MAP = {
-  "t_external": SensorQuantity.TEMPERATURE,
-  "t_internal_1": SensorQuantity.TEMPERATURE,
-  "t_internal_2": SensorQuantity.TEMPERATURE,
-  "t_bme280": SensorQuantity.TEMPERATURE,
-  "pressure": SensorQuantity.PRESSURE,
-  "humidity": SensorQuantity.HUMIDITY,
-  "lux": SensorQuantity.LIGHT
+  "t_external": {
+    "unit": SensorQuantity.TEMPERATURE,
+    "limit": 0
+  },
+  "t_internal_1": {
+    "unit": SensorQuantity.TEMPERATURE,
+    "limit": 35
+  },
+  "t_internal_2": {
+    "unit": SensorQuantity.TEMPERATURE,
+    "limit": 35
+  },
+  "t_bme280": {
+    "unit": SensorQuantity.TEMPERATURE,
+    "limit": 35
+  },
+  "pressure": {
+    "unit": SensorQuantity.PRESSURE,
+    "limit": 0
+  },
+  "humidity": {
+    "unit": SensorQuantity.HUMIDITY,
+    "limit": 80
+  },
+  "lux": {
+    "unit": SensorQuantity.LIGHT,
+    "limit": 0
+  },
 }
