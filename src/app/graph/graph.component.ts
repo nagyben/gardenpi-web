@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, AfterContentInit, AfterViewInit } from '@angular/core';
 import * as Highcharts from 'highcharts/highstock';
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
 
 declare var require: any;
 const Boost = require('highcharts/modules/boost');
@@ -38,6 +39,7 @@ export class GraphComponent implements AfterViewInit {
       xAxis: {
         type: 'datetime',
         ordinal: false,
+        min: new Date(new Date().setDate(new Date().getDate()-1)).getTime(),
       },
       series: this.series,
       plotOptions: {
@@ -60,9 +62,46 @@ export class GraphComponent implements AfterViewInit {
         useGPUTranslations: true
       },
       yAxis: [
-        {opposite: false, min: 0},
-        {opposite: true},
-      ]
+        {opposite: false, min: 0, title: { text: 'Temperature \xb0C, Humidity (%)'}},
+        {opposite: true, title: { text: 'Ambient light (lux)'}},
+        {opposite: true, title: { text: 'Pressure'}},
+      ],
+      tooltip: {
+        shared: true,
+        split: false,
+      },
+      rangeSelector: {
+        buttons: [
+          {
+              type: 'month',
+              count: 1,
+              text: '1m'
+          },
+          {
+              type: 'month',
+              count: 3,
+              text: '3m'
+          },
+          {
+              type: 'month',
+              count: 6,
+              text: '6m'
+          },
+          {
+              type: 'ytd',
+              text: 'YTD'
+          },
+          {
+              type: 'year',
+              count: 1,
+              text: '1y'
+          },
+          {
+              type: 'all',
+              text: 'All'
+          }
+        ]
+      }
     };
     Highcharts.stockChart(this.chartId, options);
   }

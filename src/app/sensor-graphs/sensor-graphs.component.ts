@@ -5,9 +5,10 @@ import { Observable } from 'rxjs';
 import { max } from 'rxjs/operators';
 
 
-const SECONDARY_YAXIS = [
-  "pressure", "lux"
-]
+const YAXIS_REF = {
+  "pressure": 2,
+  "lux": 1
+}
 
 @Component({
   selector: 'app-sensor-graphs',
@@ -37,7 +38,7 @@ export class SensorGraphsComponent implements OnInit {
           data: data.get(key),
           type: 'spline',
           lineWidth: 1,
-          yAxis: SECONDARY_YAXIS.includes(key) ? 1 : 0,
+          yAxis: key in YAXIS_REF ? YAXIS_REF[key] : 0,
           dataGrouping: {
             enabled: true,
             groupPixelWidth: 5
