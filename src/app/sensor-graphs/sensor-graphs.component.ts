@@ -7,7 +7,8 @@ import { max } from 'rxjs/operators';
 
 const YAXIS_REF = {
   "pressure": 2,
-  "lux": 1
+  "lux": 1,
+  "vent": 1,
 }
 
 @Component({
@@ -37,7 +38,7 @@ export class SensorGraphsComponent implements OnInit {
           name: key,
           data: data.get(key),
           type: 'spline',
-          lineWidth: 1,
+          lineWidth: 2,
           yAxis: key in YAXIS_REF ? YAXIS_REF[key] : 0,
           dataGrouping: {
             enabled: true,
