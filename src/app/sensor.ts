@@ -21,6 +21,7 @@ export function getUnitString(sensorQuantity: SensorQuantity) {
         case SensorQuantity.HUMIDITY:
             return "%";
         default:
+            return "";
             break;
     }
 }
